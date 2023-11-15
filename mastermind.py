@@ -6,11 +6,12 @@ class Boards:
         #user setup
         self.colors_num = int(input("How many colors? (1-8): "))
         while self.colors_num > 8:
-            self.colors_num = int(input("How many colors? (1-8): "))
+             self.colors_num = int(input("How many colors? (1-8): "))
 
         self.positions_num = int(input("How many positions? (1-10): "))
         while self.positions_num > 10:
-            self.positions_num = int(input("How many positions? (1-10): "))
+             self.positions_num = int(input("How many positions? (1-10): "))
+
         #color
         self.colors = []
         self.add_colors()
@@ -24,6 +25,7 @@ class Boards:
         self.round = 1
 
     def add_colors(self):
+        """add number correspond with user_amount of number"""
         for i in range(self.positions_num):
             if i < self.colors_num:
                self.colors.append(str(i+1))
@@ -31,11 +33,12 @@ class Boards:
                self.colors.append(random.randint(1, self.colors_num))
 
     def random_answer(self):
+        """random solution from colors in self_colors"""
         for i in range(self.positions_num):
             self.answer.append(random.choice(self.colors))
 
     def clues(self, user_num):
-
+        """give clue to user"""
         list_user = list(user_num)
         user_clues = ""
         if list_user == self.answer:
@@ -48,10 +51,9 @@ class Boards:
                          check.append(list_user[i])
                  elif list_user[i] in self.answer and list_user[i] not in check:
                          user_clues += "X"
-                         check.append(list_user[i])
                  else:
                      user_clues += "."
-
+        ###TODO fix bug from clue method and make this private
         #swap string place
         random_list = random.sample(user_clues, len(user_clues))
         self.round += 1
