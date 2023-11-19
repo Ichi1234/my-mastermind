@@ -17,10 +17,9 @@ class Boards:
         self.add_colors()
 
         #The solution is here
-        self.answer = ["3", "3", "1", "3"]
-        # self.random_answer()
+        self.answer = []
+        self.random_answer()
 
-        print(self.answer) ###TODO delete this when finish
         #How many round user play
         self.round = 1
 
@@ -49,11 +48,11 @@ class Boards:
                  if list_user[i] == self.answer[i]:
                          user_clues += "0"
                          check.append(list_user[i])
-                 elif list_user[i] in self.answer and list_user[i] not in check:
+                 elif list_user[i] in self.answer and self.answer.count(list_user[i]) >= list_user.count(list_user[i]):
                          user_clues += "X"
                  else:
                      user_clues += "."
-        ###TODO fix bug from clue method and make this private
+
         #swap string place
         random_list = random.sample(user_clues, len(user_clues))
         self.round += 1
@@ -64,8 +63,13 @@ class Boards:
 board = Boards()
 
 while True:
+
     user_guess = input("What is your guess?: ")
+    while len(user_guess) != len(board.answer):
+        print(f"Your input need to have only {board.positions_num} character.")
+        user_guess = input("What is your guess?: ")
     print(f"Your guess is {user_guess}")
+
     clue = board.clues(user_guess)
     if clue is None:
         print(f"You solve it after {board.round} rounds")
